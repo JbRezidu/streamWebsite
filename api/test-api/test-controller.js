@@ -1,16 +1,15 @@
 'use strict';
-
+const mysql = require('mysql');
 const db = require('db/index');
 
 const getTest = (req, res, next) => {
-  db.connect();
-  db.query('SELECT * FROM Test', (error, results, fields) => {
-    /*console.log(error);*/
+  const connection = mysql.createConnection(db.config);
+  connection.connect();
+  connection.query('SELECT * FROM Test', (error, results, fields) => {
     console.log(results);
-    /*console.log(fields);*/
-    return res.status(200).json({test: 'ok'});
+    return res.status(200).json(results);
   });
-  db.end();
+  connection.end();
 };
 
 module.exports = {
