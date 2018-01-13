@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 global.APP_ROOT = __dirname;
 console.log("dirname : " + __dirname);
 require('app-module-path').addPath(global.APP_ROOT);
