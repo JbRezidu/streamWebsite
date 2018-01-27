@@ -1,0 +1,32 @@
+Schemé BDD
+
+Planing :
+
+  Un slot, une horraire, une case, un crénau
+  Un jour
+  Une semaine
+
+Week : {
+  days: Day[];
+  startDate: Date (string),
+  endDate: Date (string)
+}
+
+Day: {
+  slots: Slot[],
+  date: Date (string)
+}
+
+Slot: {
+  startHour: int,
+  duration: int (=1),
+  streamer: Streamer[] ?,
+  description: string,
+  title: string
+}
+
+Streamer: {
+  pseudo: string,
+  color: string (red, blue, green, #ffffff),
+  password: string
+}

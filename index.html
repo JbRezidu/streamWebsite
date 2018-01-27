@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+<button id="getStreamers">GetStremers</button>
+<div id="streamers"></div>
+<script>
+    console.log($);
+    document.getElementById('getStreamers').addEventListener('click', () => {
+      $.ajax({
+        url: 'localhost:3000/api/streamers',
+        type: 'GET',
+        success: streamers => {
+          console.log(streamers);
+        },
+        error: error => {
+          console.log(error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
