@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Day = require('api/day/day.model');
+const Schema = mongoose.Schema;
 
 const weekSchema = mongoose.Schema({
   startDate: Date,
   endDate: Date,
-  days: [Day]
+  days: [{type: Schema.Types.ObjectId, ref: 'Day'}]
 });
 
 const Week = mongoose.model('Week', weekSchema);

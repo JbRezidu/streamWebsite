@@ -8,12 +8,26 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-const routes = require('api/test-api/index');
+const mongoose = require('mongoose');
 const viewRoute = require('routes/index');
-const streamerRoutes = require('api/streamer/index');
+
+// Routes
+const streamerRoutes = require('api/streamer');
+const slotRoutes = require('api/slot');
+const dayRoutes = require('api/day');
+const weekRoutes = require('api/week');
+
+const dbSettings = require('db/index2');
 
 var app = express();
+
+// connexion bdd
+mongoose.connect(`mongodb://${dbSettings.username}:${dbSettings.password}@${dbSettings.host}:${dbSettings.port}/${dbSettings.database}`);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('connexion BDD success !')
+});
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
@@ -26,20 +40,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.static(__dirname + '/public'));
 //app.use(viewRoute);
-app.use('/api', streamerRoutes);
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+// Use our api routes
+app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes);
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

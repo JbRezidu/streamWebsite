@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Slot = require('api/slot/slot.model');
+const Schema = mongoose.Schema;
 
 const daySchema = mongoose.Schema({
   date: Date,
-  slots: [Slot]
+  slots: [{type: Schema.Types.ObjectId, ref: 'Slot', default: []}],
 });
 
 const Day = mongoose.model('Day', daySchema);

@@ -7,22 +7,22 @@
 </head>
 
 <body>
-<button id="getStreamers">GetStremers</button>
-<div id="streamers"></div>
+<button id="getStreamers">GetStreamers</button><br/>
+Liste des streamers : <span id="streamers"></span>
 <script>
-    console.log($);
     document.getElementById('getStreamers').addEventListener('click', () => {
       $.ajax({
-        url: 'localhost:3000/api/streamers',
+        url: 'http://localhost:3000/api/streamers',
         type: 'GET',
-        isLocal: true,
-        crossDomain: true,
-        success: streamers => {
-          console.log(streamers);
-        },
-        error: error => {
-          console.log(error);
-        }
+        crossDomain: true
+      })
+      .done(res => {
+        console.log(res);
+        res = res.map(el => el.pseudo);
+        document.getElementById("streamers").innerHTML = res.join(', ');
+      })
+      .fail(err => {
+        console.log(err);
       });
     });
   </script>

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const Streamer = require('api/streamer/streamer.model');
+const Schema = mongoose.Schema;
 
 const slotSchema = mongoose.Schema({
   startHour: Number,
   duration: {type: Number, default: 1},
   description: String,
   title: String,
-  streamer: Streamer
+  streamer: {type: Schema.Types.ObjectId, ref: 'Streamer'}
 });
 
 const Slot = mongoose.model('Slot', slotSchema);
