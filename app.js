@@ -16,6 +16,7 @@ const streamerRoutes = require('api/streamer');
 const slotRoutes = require('api/slot');
 const dayRoutes = require('api/day');
 const weekRoutes = require('api/week');
+const authenticationRoutes = require('api/authentication');
 
 const dbSettings = require('db/index2');
 
@@ -43,14 +44,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 //app.use(viewRoute);
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, contenttype, Content-Type, Accept");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 
 
 // Use our api routes
-app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes);
+app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes, authenticationRoutes);
 
 
 // catch 404 and forward to error handler
@@ -62,13 +65,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  next(err);
 });
 
 // module.exports = app;

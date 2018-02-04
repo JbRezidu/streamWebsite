@@ -20,7 +20,7 @@ const getWeeks = (req, res, next) => {
     })
     .exec((err, days) => {
       if (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
       res.status(200).json(days);
     });
@@ -54,7 +54,7 @@ const createWeek = (req, res, next) => {
   const newWeek = new Week(req.body);
   newWeek.save((err, _newWeek) => {
     if (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
     res.status(200).json(_newWeek);
   });
