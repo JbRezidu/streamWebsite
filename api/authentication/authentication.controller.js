@@ -10,7 +10,7 @@ const checkAuthentication = (req, res, next) => {
   const token = req.headers.token;
   Streamer.findOne()
     .where('pseudo').equals(streamer)
-    .where('token').equals(token + 'toto')
+    .where('token').equals(token)
     .exec((err, streamer) => {
       if (err) {
         return res.status(500).json(err);
@@ -19,6 +19,7 @@ const checkAuthentication = (req, res, next) => {
         // Le streamer n'a pas été trouvé avec ce token ou avec ce pseudo
         return res.status(400).json({code: 404, message: 'Streamer non trouvé'});
       }
+      req.params.streamer = streamer;
       next();
     });
 };

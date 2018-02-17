@@ -29,19 +29,19 @@ const getWeeks = (req, res, next) => {
 const getWeekByDate = (req, res, next) => {
   const expectedDate = new Date(req.params.date);
   Week
-    .find()
+    .findOne()
     .where('startDate').lte(expectedDate)
     .where('endDate').gte(expectedDate)
     .select('-__v -_id')
     .populate({
       path: "days",
-      select: "-__v -_id",
+      select: "-__v",
       populate: {
         path: "slots",
         select: "-__v -_id",
         populate: {
           path: "streamer",
-          select: "-_id -__v -password"
+          select: "-_id -__v -token -password"
         }
       }
     })

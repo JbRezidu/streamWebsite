@@ -27,6 +27,8 @@ const createSlot = (req, res, next) => {
 };
 
 const createSlotAndAddToDay = (req, res,next) => {
+  console.log(req.params.streamer);
+  req.body.streamer = req.params.streamer._id;
   const dayId = req.body.dayId;
   delete(req.body.dayId);
   const newSlot = new Slot(req.body);
