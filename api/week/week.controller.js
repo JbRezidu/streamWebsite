@@ -38,7 +38,7 @@ const getWeekByDate = (req, res, next) => {
       select: "-__v",
       populate: {
         path: "slots",
-        select: "-__v -_id",
+        select: "-__v",
         populate: {
           path: "streamer",
           select: "-_id -__v -token -password"

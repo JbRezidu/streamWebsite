@@ -7,4 +7,5 @@ const authenticationController = require('api/authentication/authentication.cont
 router.get('/slots', slotController.getSlots);
 router.post('/slot', slotController.createSlot);
 router.post('/slot/add', authenticationController.checkAuthentication, slotController.createSlotAndAddToDay);
+router.delete('/slot', authenticationController.checkAuthentication, slotController.deleteSlotAndRemoveFromDay);
 module.exports = router;
