@@ -60,3 +60,4 @@ typings/
 .vscode/
 db/
 db/index2.js
+.history

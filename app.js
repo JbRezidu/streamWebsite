@@ -19,11 +19,10 @@ const weekRoutes = require('api/week');
 const authenticationRoutes = require('api/authentication');
 
 const dbSettings = require('db/index2');
-
 var app = express();
 
 // connexion bdd
-mongoose.connect(`mongodb://${dbSettings.username}:${dbSettings.password}@${dbSettings.host}:${dbSettings.port}/${dbSettings.database}`);
+mongoose.connect(`mongodb://${dbSettings.username}:${dbSettings.password}@${dbSettings.host}:${dbSettings.port}/${dbSettings.database}`, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
