@@ -1,67 +1,33 @@
 'use strict';
-const mongoose = require('mongoose');
-const dbSettings = require('db/index2');
-const Week = require('api/week/week.model');
 
-const getWeeks = (req, res, next) => {
-  Week
-    .find()
-    .populate({
-      path: "days",
-      select: "-__v -_id",
-      populate: {
-        path: "slots",
-        select: "-__v -_id",
-        populate: {
-          path: "streamer",
-          select: "-_id -__v -password"
-        }
-      }
-    })
-    .exec((err, days) => {
-      if (err) {
-        return res.status(500).json(err);
-      }
-      res.status(200).json(days);
-    });
+const weekService = require('api/week/week.service');
+
+const getWeeks = async (req, res, next) => {
+  const result = weekService.getWeeks();
+  return res.status(200).json(result);
 };
 
-const getWeekByDate = (req, res, next) => {
-  const expectedDate = new Date(req.params.date);
-  Week
-    .findOne()
-    .where('startDate').lte(expectedDate)
-    .where('endDate').gte(expectedDate)
-    .select('-__v -_id')
-    .populate({
-      path: "days",
-      select: "-__v",
-      populate: {
-        path: "slots",
-        select: "-__v",
-        populate: {
-          path: "streamer",
-          select: "-_id -__v -token -password"
-        }
-      }
-    })
-    .exec((err, week) => {
-      res.status(200).json(week);
-    });
+const getWeekByDate = async (req, res, next) => {
+  const result = await weekService.getWeekByDate(req.params.date);
+  if (!result) {
+    return res.status(404).json('No week found');
+  }
+  return res.status(200).json(result);
 };
 
-const createWeek = (req, res, next) => {
-  const newWeek = new Week(req.body);
-  newWeek.save((err, _newWeek) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-    res.status(200).json(_newWeek);
-  });
+const createWeek = async (req, res, next) => {
+  const result = weekService.createWeek(req.body);
+  return res.status(200).json(result);
+};
+
+const instanciateCurrentWeek = async (req, res, next) => {
+  const result = await weekService.instanciateCurrentWeek();
+  return res.status(201).json(result);
 };
 
 module.exports = {
   getWeeks,
   createWeek,
   getWeekByDate,
+  instanciateCurrentWeek,
 };
