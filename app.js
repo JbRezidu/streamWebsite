@@ -16,6 +16,7 @@ const streamerRoutes = require('api/streamer');
 const slotRoutes = require('api/slot');
 const dayRoutes = require('api/day');
 const weekRoutes = require('api/week');
+const gameRoutes = require('api/game');
 const authenticationRoutes = require('api/authentication');
 
 const dbSettings = require('db/index2');
@@ -51,7 +52,7 @@ app.use(function (req, res, next) {
 });
 
 // Use our api routes
-app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes, authenticationRoutes);
+app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes, gameRoutes, authenticationRoutes);
 
 
 // catch 404 and forward to error handler
