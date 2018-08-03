@@ -12,7 +12,7 @@ Liste des streamers : <span id="streamers"></span>
 <script>
     document.getElementById('getStreamers').addEventListener('click', () => {
       $.ajax({
-        url: 'http://localhost:3000/api/streamers',
+        url: 'http://localhost:3000/api/users',
         type: 'GET'
       })
       .done(res => {

@@ -13,10 +13,10 @@
     console.log($);
     document.getElementById('getStreamers').addEventListener('click', () => {
       $.ajax({
-        url: 'localhost:3000/api/streamers',
+        url: 'localhost:3000/api/users',
         type: 'GET',
-        success: streamers => {
-          console.log(streamers);
+        success: users => {
+          console.log(users);
         },
         error: error => {
           console.log(error);

@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const viewRoute = require('routes/index');
 
 // Routes
-const streamerRoutes = require('api/streamer');
+const userRoutes = require('api/user');
 const slotRoutes = require('api/slot');
 const dayRoutes = require('api/day');
 const weekRoutes = require('api/week');
@@ -45,14 +45,14 @@ app.use(express.static(__dirname + '/public'));
 //app.use(viewRoute);
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, Token, Streamer, X-Requested-With, contenttype, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, Token, User, X-Requested-With, contenttype, Content-Type, Accept");
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 
 // Use our api routes
-app.use('/api', streamerRoutes, slotRoutes, dayRoutes, weekRoutes, gameRoutes, authenticationRoutes);
+app.use('/api', userRoutes, slotRoutes, dayRoutes, weekRoutes, gameRoutes, authenticationRoutes);
 
 
 // catch 404 and forward to error handler
