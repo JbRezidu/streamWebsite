@@ -2,7 +2,19 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('api/user/user.controller');
+const authenticationController = require('api/authentication/authentication.controller');
+const ROLES = require('shared/enums/roles.enum');
 
-router.get('/users', userController.getUsers);
-router.post('/user', userController.createUser);
+router.get(
+  '/users',
+  authenticationController.checkAuthentication,
+  authenticationController.checkRoles([ROLES.ADMIN]),
+  userController.getUsers
+);
+router.post(
+  '/user',
+  authenticationController.checkAuthentication,
+  authenticationController.checkRoles([ROLES.ADMIN]),
+  userController.createUser
+);
 module.exports = router;
