@@ -39,7 +39,7 @@ const logout = async (req, res, next) => {
   if ((result || {}).error) {
     return res.status(result.error.httpCode).json(result.error.message);
   }
-  return res.send(204);
+  return res.sendStatus(204);
 };
 
 module.exports = {

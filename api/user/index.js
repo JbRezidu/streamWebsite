@@ -11,6 +11,14 @@ router.get(
   authenticationController.checkRoles([ROLES.ADMIN]),
   userController.getUsers
 );
+
+router.get(
+  '/streamers',
+  authenticationController.checkAuthentication,
+  authenticationController.checkRoles([ROLES.ADMIN]),
+  userController.getStreamers
+);
+
 router.post(
   '/user',
   authenticationController.checkAuthentication,

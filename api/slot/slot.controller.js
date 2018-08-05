@@ -36,9 +36,9 @@ const deleteSlotAndRemoveFromDay = async (req, res, next) => {
     connectedStreamer,
   });
   if ((result || {}).error) {
-    return res.send(result.error.httpCode).json(result.error.message);
+    return res.sendStatus(result.error.httpCode).json(result.error.message);
   }
-  return res.send(204);
+  return res.sendStatus(204);
 };
 
 module.exports = {

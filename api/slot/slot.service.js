@@ -44,9 +44,9 @@ const deleteSlotAndRemoveFromDay = async ({ slotDayId, slotToRemoveId, connected
     };
   }
   // remove the slot from the day
-  const slotIndexToRemove = _findIndex(day.slots.toObject(), { id: slotToRemoveId });
-  day.slots.splice(slotIndexToRemove, 1);
-  await day.save();
+  const slotIndexToRemove = _findIndex(storedDay.slots.toObject(), { id: slotToRemoveId });
+  storedDay.slots.splice(slotIndexToRemove, 1);
+  await storedDay.save();
   // remove the slot document
   await storedSlot.remove();
 };

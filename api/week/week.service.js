@@ -39,7 +39,7 @@ const getWeekByDate = async (date) => {
         populate: [
           {
             path: 'streamer',
-            select: '-_id -__v -token -password',
+            select: '-_id -__v -roles -token -password',
           },
           {
             path: 'game',
